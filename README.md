@@ -16,12 +16,12 @@
 - LED Indicators.
 - Micro USB.
  
-<!-- WIZ550web EVB pic -->
+<!-- WIZ550SR EVB pic -->
 <p align="center">
   <img width="70%" src="http://wizwiki.net/wiki/lib/exe/fetch.php?media=products:wiz550sr:gettingstarted:wiz550sr_evb_1.png" />
 </p>
  
-For more details, please refer to [WIZ550web Wiki page](http://wizwiki.net/wiki/doku.php?id=products:wiz550sr:start) in [WIZnet Wiki](http://wizwiki.net).
+For more details, please refer to [WIZ550SR Wiki page](http://wizwiki.net/wiki/doku.php?id=products:wiz550sr:start) in [WIZnet Wiki](http://wizwiki.net).
  
  
 ##Features
