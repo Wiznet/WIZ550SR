@@ -3,7 +3,7 @@
  
 - 22(W) x 24mm(L) x 13mm(H)
 <!-- WIZ550SR pic -->
-![WIZ550SR](http://wizwiki.net/wiki/lib/exe/fetch.php?media=products:wiz550sr:wiz550sr_ds:wiz550sr.png "WIZ550web")
+![WIZ550SR](http://wizwiki.net/wiki/lib/exe/fetch.php?media=products:wiz550sr:wiz550sr_ds:wiz550sr.png "WIZ550SR")
  
  
 ##WIZ550SR EVB (Separate purchases)
