@@ -33,8 +33,6 @@ For more details, please refer to [WIZ550SR Wiki page](http://wizwiki.net/wiki/d
 - ST Microelectronics STM32F103RCT6
   - ARM 32-bit Cortex™-M3 microcontroller running at up to 72MHz
   - 128kB on-chip flash / 20kB on-chip SRAM / Various peripherals
-- Adesto Technologies AT45DB081D-SU
-  - 8-Megabit Serial Flash Memory 
 - For more details ( http://wizwiki.net/wiki/doku.php?id=products:wiz550sr:start )
  
  
