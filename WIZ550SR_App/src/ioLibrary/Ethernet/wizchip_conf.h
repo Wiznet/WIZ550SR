@@ -61,7 +61,7 @@
  *       ex> <code> #define \_WIZCHIP_      5500 </code>
  */
 #ifndef _WIZCHIP_
-#define _WIZCHIP_                      5500   // 5100, 5200, 5300, 5500, 7500
+#define _WIZCHIP_                      5500   // 5100, 5200, 5300, 5500
 #endif
 
 #define _WIZCHIP_IO_MODE_NONE_         0x0000
@@ -137,8 +137,8 @@
  * @todo you should select interface mode as chip. Select one of @ref \_WIZCHIP_IO_MODE_SPI_ , @ref \_WIZCHIP_IO_MODE_BUS_DIR_ or @ref \_WIZCHIP_IO_MODE_BUS_INDIR_
  */
 #ifndef _WIZCHIP_IO_MODE_
-   #define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_DIR_
-// #define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_INDIR_
+//   #define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_DIR_
+ #define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_INDIR_
 #endif
 
 //A20150601 : Define the unit and bus width of IO DATA. 
@@ -147,7 +147,7 @@
     * @todo you should select the bus width. Select one of 8 or 16.
     */
    #ifndef _WIZCHIP_IO_BUS_WIDTH_
-   #define _WIZCHIP_IO_BUS_WIDTH_       16  // one of 8,16
+   #define _WIZCHIP_IO_BUS_WIDTH_       8  // 16
    #endif
    #if _WIZCHIP_IO_BUS_WIDTH_ == 8
       typedef   uint8_t   iodata_t;
@@ -158,19 +158,6 @@
    #endif
 //
    #include "W5300/w5300.h"
-#elif (_WIZCHIP_ == 7500)
-  #define _WIZCHIP_ID_                 "W7500\0"
-  
-/**
- * @brief Define interface mode. \n
- * @todo Should select interface mode as chip. 
- *        - @ref \_WIZCHIP_IO_MODE_BUS_ \n
- *        - @ref \_WIZCHIP_IO_MODE_BUS_DIR_ \n
- *       
- */
-   #define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_DIR_
-   typedef   uint8_t   iodata_t;
-   #include "W7500x_wztoe.h"
 #else
    #error "Unknown defined _WIZCHIP_. You should define one of 5100, 5200, and 5500 !!!"
 #endif
@@ -186,11 +173,7 @@
  *       ex> <code> #define \_WIZCHIP_IO_BASE_      0x00008000 </code>
  */
 #ifndef _WIZCHIP_IO_BASE_
-#if (_WIZCHIP_ == 5300)
-#define _WIZCHIP_IO_BASE_              0x34000000  // 0x8000
-#else
 #define _WIZCHIP_IO_BASE_              0x00000000  // 0x8000
-#endif
 #endif
 
 //M20150401 : Typing Error

@@ -262,7 +262,7 @@ static void trigger_none_process(uint8_t sock_state)
 		return;
 	}
 
-	if(uart_size_prev == RingBuffer_GetCount(&rxring)) {			// UART ?�신 ?�이?��? ?�으�?
+	if(uart_size_prev == RingBuffer_GetCount(&rxring)) {			// UART ?�신 ?�이?��? ?�으�?
 		if(trigger_flag == 0)
 			trigger_flag = 1;
 	} else {
@@ -518,6 +518,7 @@ static void s2e_sockestablished_process(uint8_t sock)
 				auth_process(sock);
 				return;
 			}
+			break;
 		case TCP_CLIENT_MODE:
 			if((inactive_flag == 0) && net->inactivity)
 				inactive_flag = 1;
