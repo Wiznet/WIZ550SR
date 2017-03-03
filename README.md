@@ -73,4 +73,8 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
 ## Revision History
 v1.0.0
-- First release : DEC. 2016
+- First release : 2016-12
+
+v1.1.0
+- ioLibrary Update
+- Remove garbage file
