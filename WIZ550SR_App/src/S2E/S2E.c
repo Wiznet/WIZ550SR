@@ -518,6 +518,12 @@ static void s2e_sockestablished_process(uint8_t sock)
 				auth_process(sock);
 				return;
 			}
+			if((inactive_flag == 0) && net->inactivity)
+				inactive_flag = 1;
+			else if(inactive_flag == 2) {
+				inactive_flag = 0;
+				disconnect(sock);
+			}
 			break;
 		case TCP_CLIENT_MODE:
 			if((inactive_flag == 0) && net->inactivity)
