@@ -1,4 +1,4 @@
-#WIZ550SR
+# WIZ550SR
 - Serial to Ethernet Module based on W5500 & Cortex-M3
  
 - 22(W) x 24mm(L) x 13mm(H)
@@ -6,7 +6,7 @@
 ![WIZ550SR](http://wizwiki.net/wiki/lib/exe/fetch.php?media=products:wiz550sr:wiz550sr_ds:wiz550sr.png "WIZ550SR")
  
  
-##WIZ550SR EVB (Separate purchases)
+## WIZ550SR EVB (Separate purchases)
 - WIZ550SR Developer Board.
 - USB to UART chip, FT2232D.
 - RJ45 with Transformer, RB1-1D5B8K1A.
@@ -24,7 +24,7 @@
 For more details, please refer to [WIZ550SR Wiki page](http://wizwiki.net/wiki/doku.php?id=products:wiz550sr:start) in [WIZnet Wiki](http://wizwiki.net).
  
  
-##Features
+## Features
 - WIZnet W5500 Hardwired TCP/IP chip
   - Hardwired TCP/IP embedded Ethernet controller
   - SPI (Serial Peripheral Interface) Microcontroller Interface
@@ -61,7 +61,7 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
   - [Download Page Link](http://wizwiki.net/wiki/doku.php?id=products:wiz550sr:wiz550sr_download)
  
  
-##Tool & Compiler
+## Tool & Compiler
 - Reference Link: http://opensrclab.tistory.com/33 (Step by Step)
 - Compiler: gcc-arm-none-eabi-4_8-2014q1-20140314-win32.exe (https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q1-update)
 - Java: http://www.oracle.com/technetwork/java/javase/downloads/index.html 
@@ -78,3 +78,6 @@ v1.0.0
 v1.1.0
 - ioLibrary Update
 - Remove garbage file
+
+v1.1.1
+- Add inactivity time function in Server/Mixed Mode
