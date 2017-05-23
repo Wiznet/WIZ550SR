@@ -75,12 +75,12 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
-v1.0.0
-- First release : 2016-12
+v1.1.1
+- Add inactivity time function in Server/Mixed Mode
 
 v1.1.0
 - ioLibrary Update
 - Remove garbage file
 
-v1.1.1
-- Add inactivity time function in Server/Mixed Mode
+v1.0.0
+- First release : 2016-12
