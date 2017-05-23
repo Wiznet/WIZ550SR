@@ -62,7 +62,10 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Tool & Compiler
-- Reference Link: http://opensrclab.tistory.com/33 (Step by Step)
+- Reference Link:
+  - [Eclipse GCC ARM develop environment + OpenOCD for Linux](http://blog.naver.com/opusk/221008480771)
+  - [Eclipse GCC ARM develop environment + OpenOCD for Windows](http://blog.naver.com/opusk/221006348299)
+
 - Compiler: gcc-arm-none-eabi-4_8-2014q1-20140314-win32.exe (https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q1-update)
 - Java: http://www.oracle.com/technetwork/java/javase/downloads/index.html 
 - Eclipse: eclipse-cpp-kepler-SR2-win32-x86_64 (http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplersr2)
