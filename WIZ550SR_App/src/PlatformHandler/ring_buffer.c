@@ -111,7 +111,18 @@ int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, const void *data, int num)
 	memcpy(ptr, data, cnt2 * RingBuff->itemSz);
 	RingBuff->head += cnt2;
 
+#if 1	// added by kei for resolve RECV data loss issue. (20170525)
+	if(num > 0) {
+		ptr = (uint8_t *) RingBuff->data + RB_INDH(RingBuff) * RingBuff->itemSz;
+		data += cnt2 * RingBuff->itemSz;
+		memcpy(ptr, data, num * RingBuff->itemSz);
+		RingBuff->head += num;
+	}
+
+	return cnt1 + cnt2 + num;
+#else  // old
 	return cnt1 + cnt2;
+#endif
 }
 
 /* Pop single item from Ring Buffer */
