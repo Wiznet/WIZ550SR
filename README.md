@@ -75,6 +75,9 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
+v1.1.2
+- Fixed recevied data loss(During trans to serial) problem in AT Mode
+
 v1.1.1
 - Add inactivity time function in Server/Mixed Mode
 
