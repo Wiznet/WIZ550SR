@@ -625,6 +625,8 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 	int32_t len=0, offset=0;
 	uint16_t recvsize;
 
+	if(maxlen > 1000) maxlen = 1000; // limit max size of receive data from ethernet. (20170525)
+
 	if(sock == VAL_NONE) {	DBG("sock==NONE");
 		for(i=ATC_SOCK_NUM_START; i<=ATC_SOCK_NUM_END; i++) {
 			if(recvflag[i] == VAL_SET) {
@@ -727,8 +729,15 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 	ARG_CLEAR(atci.tcmd.arg2);
 	ARG_CLEAR(atci.tcmd.arg3);
 
-	UART_write(atci.recvbuf, len);
-	UART_write("\r\n", 2);
+#if 1 // added by kei for resolve RECV data loss issue. (20170525)
+	uint32_t send_len = 0;
+	do{
+		send_len += UART_write(&atci.recvbuf[send_len], len-send_len);
+	}while(len-send_len);
+#else
+ 	UART_write(atci.recvbuf, len);
+ 	UART_write("\r\n", 2);
+#endif
 
 	return;
 
