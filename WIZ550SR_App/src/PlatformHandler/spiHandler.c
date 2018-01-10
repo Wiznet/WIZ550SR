@@ -2,6 +2,7 @@
 #include "stm32f10x.h"
 #include "spiHandler.h"
 #include "uartHandler.h"
+#include "timerHandler.h"
 #include "wizchip_conf.h"
 
 void Delay(volatile unsigned int nCount)
