@@ -47,6 +47,7 @@ void USART1_Configuration(void);
 void USART2_Configuration(void);
 
 uint32_t Chip_UART_SendRB(USART_TypeDef *pUART, RINGBUFF_T *pRB, const void *data, int bytes);
+int Chip_UART_ReadRB(USART_TypeDef *pUART, RINGBUFF_T *pRB, void *data, int bytes);
 int UART_read(void *data, int bytes);
 uint32_t UART_write(void *data, int bytes);
 int UART_read_blk(void *data, int bytes);
