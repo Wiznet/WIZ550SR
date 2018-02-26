@@ -10,6 +10,7 @@
 #include "storageHandler.h"
 #include "flashHandler.h"
 #include "i2cHandler.h"
+#include "timerHandler.h"
 #include "eepromHandler.h"
 
 #if !defined(MULTIFLASH_ENABLE)

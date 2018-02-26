@@ -142,6 +142,7 @@ int main(int argc, char* argv[])
 			}
 			do_udp_config(SOCK_CONFIG);
 		}
+		display_Net_Info();
 	} else 								// Static
 		Net_Conf();
 
