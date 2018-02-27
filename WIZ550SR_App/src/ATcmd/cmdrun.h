@@ -77,6 +77,7 @@
 #define POLL_MODE_SEMI 0x1
 #define POLL_MODE_FULL 0x2
 
+//#define EVENT_RESP_PRINTF_UART_SYNCED
 
 typedef struct atct_t {
 	int8_t sign;

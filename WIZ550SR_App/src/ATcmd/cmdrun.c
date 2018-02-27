@@ -37,8 +37,16 @@
 	if(len > argsize_v-1) {memcpy((char*)arg_p, (char*)str_p, argsize_v-1); arg_p[argsize_v-1]=0;} \
 	else {memcpy((char*)arg_p, (char*)str_p, len); arg_p[len]=0;} \
 } while(0)
+
+#ifdef EVENT_RESP_PRINTF_UART_SYNCED
 #define EVENT_RESP(id_v, evt_v)			printf("[V,%d,%d]\r\n", id_v, evt_v)
 #define EVENT_RESP_SIZE(id_v, evt_v, size_v) printf("[V,%d,%d,%d]\r\n", id_v, evt_v, size_v)
+#else
+#define EVENT_RESP(id_v, evt_v)			sprintf(eventRespBuffer, "[V,%d,%d]\r\n", id_v, evt_v)
+#define EVENT_RESP_SIZE(id_v, evt_v, size_v) sprintf(eventRespBuffer, "[V,%d,%d,%d]\r\n", id_v, evt_v, size_v)
+#endif
+
+static char eventRespBuffer[20]={' ',};
 
 enum {
 	SOCKEVENT_CONN		= 0,
@@ -133,6 +141,10 @@ void atc_async_cb(uint8_t sock, uint8_t item, int32_t ret)
 			sockwatch_set(sock, WATCH_SOCK_CLS_EVT);
 			sockwatch_set(sock, WATCH_SOCK_RECV);
 			EVENT_RESP(sock, SOCKEVENT_CONN);
+#ifndef EVENT_RESP_PRINTF_UART_SYNCED
+			UART_write(eventRespBuffer, strlen((char*)eventRespBuffer));
+			memset(eventRespBuffer, ' ', sizeof(eventRespBuffer));
+#endif
 		} else {
 			CRITICAL_ERRA("WATCH_SOCK_CONN_EVT fail - ret(%d)", ret);
 		}
@@ -151,13 +163,25 @@ void atc_async_cb(uint8_t sock, uint8_t item, int32_t ret)
 				if(ret == SOCK_OK) {
 					sockwatch_set(sock, WATCH_SOCK_CONN_EVT);
 					EVENT_RESP(sock, SOCKEVENT_DISCON);
+#ifndef EVENT_RESP_PRINTF_UART_SYNCED
+					UART_write(eventRespBuffer, strlen((char*)eventRespBuffer));
+					memset(eventRespBuffer, ' ', sizeof(eventRespBuffer));
+#endif
 				} else {
 					sock_put(sock);
 					EVENT_RESP(sock, SOCKEVENT_CLS);
+#ifndef EVENT_RESP_PRINTF_UART_SYNCED
+					UART_write(eventRespBuffer, strlen((char*)eventRespBuffer));
+					memset(eventRespBuffer, ' ', sizeof(eventRespBuffer));
+#endif
 				}
 			} else {
 				sock_put(sock);
 				EVENT_RESP(sock, SOCKEVENT_CLS);
+#ifndef EVENT_RESP_PRINTF_UART_SYNCED
+				UART_write(eventRespBuffer, strlen((char*)eventRespBuffer));
+				memset(eventRespBuffer, ' ', sizeof(eventRespBuffer));
+#endif
 			}
 		} else {
 			CRITICAL_ERRA("WATCH_SOCK_CONN_EVT fail - ret(%d)", ret);
