@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	atc_init(&rxring, &txring);
+	atc_init();
 
 	op_mode = OP_DATA;
 	while (1) {
