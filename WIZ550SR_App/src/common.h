@@ -6,11 +6,11 @@
 
 #define MAJOR_VER		1
 #define MINOR_VER		1
-#define MAINTENANCE_VER	3
+#define MAINTENANCE_VER	4
 
-#define SOCK_CONFIG		0
+#define SOCK_DATA		0
 #define SOCK_TFTP		1
-#define SOCK_DATA		2
+#define SOCK_CONFIG		2
 #define SOCK_DHCP		3
 #define SOCK_DNS		4
 #define SOCK_CONFIGEX	5
