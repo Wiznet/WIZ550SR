@@ -75,6 +75,19 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
+v1.1.6
+- Fixed Response and debug message error in AT Mode
+
+v1.1.5
+- Fixed Problems receiving data in AT Mode
+
+v1.1.4
+- Fixed Can not find when the module working in AT Mode
+- Fixed UDP Send Fail in AT Mode
+
+v1.1.3
+- Fix TCP Server Mode S2E bug.
+
 v1.1.2
 - Fixed recevied data loss(During trans to serial) problem in AT Mode
 
