@@ -627,8 +627,7 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 	uint16_t dstport;
 	int32_t len=0, offset=0;
 	uint16_t recvsize;
-
-	if(maxlen > 1000) maxlen = 1000; // limit max size of receive data from ethernet. (20170525)
+	uint16_t sentlen=0, rbret=0;
 
 	if(sock == VAL_NONE) {	DBG("sock==NONE");
 		for(i=ATC_SOCK_NUM_START; i<=ATC_SOCK_NUM_END; i++) {
@@ -662,9 +661,12 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 			ret = RET_NO_DATA;
 			goto FAIL_RET;
 		}
-		len = recv(sock, (uint8_t*)atci.recvbuf, maxlen);			//DBGA("TCPdbg---m(%d)l(%d)f(%d)", maxlen, len, GetSocketRxRecvBufferSize(sock));
+		else {
+			if(recvsize > maxlen)
+				recvsize = maxlen;
+		}
+		len = recv(sock, (uint8_t*)atci.recvbuf, recvsize);			//DBGA("TCPdbg---m(%d)l(%d)f(%d)", maxlen, len, GetSocketRxRecvBufferSize(sock));
 	} else {									// UDP
-		uint16_t bufleft = maxlen;
 
 		getsockopt(sock, SO_RECVBUF, (uint16_t*)&recvsize);
 		if(recvsize == 0) {
@@ -672,45 +674,13 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 			ret = RET_NO_DATA;
 			goto FAIL_RET;
 		}
-
-		if(bufleft < recvsize) {
-			DBGA("buffer not enough - sock(%d),buf(%d),recv(%d)", sock, bufleft, recvsize);
-			ret = RET_NO_FREEMEM;
-			goto FAIL_RET;
+		else {
+			if(recvsize > maxlen)
+				recvsize = maxlen;
 		}
-
-		offset = recvfrom(sock, (uint8_t*)&atci.recvbuf[len], bufleft, dstip, &dstport);
-		if(offset <= 0 || offset > (int32_t)bufleft) {	// Abnormal case - I don't think this could happen but just in case.
-			if(offset > (int32_t)bufleft) {
-				ERRA("buf overflw - off(%d), maxlen(%d)", offset, bufleft);
-				if(len == 0) {
-					ret = RET_UNSPECIFIED;
-					goto FAIL_RET;
-				}
-				bufleft = 0;
-			} else {
-				ERRA("wrong reaction - ret(%d)", offset);
-				if(len == 0) {
-					if(offset == SOCK_CLOSED) {
-						ret = RET_SOCK_CLS;
-						goto FAIL_RET;
-					} else if(offset < 0) {
-						ret = RET_UNSPECIFIED;
-						goto FAIL_RET;
-					} else {
-						ret = RET_NO_DATA;
-						goto FAIL_RET;
-					}
-				}
-			}
-		} else {			// Normal case
-			DBGA("UDP Recv - off(%d), len(%d), maxlen(%d)", offset, len, bufleft);
-			len += offset;
-			bufleft -= offset;
-		}
+		len = recvfrom(sock, (uint8_t*)atci.recvbuf, recvsize, dstip, &dstport);
 	}
 										//DBGA("RECV prt-len(%d), max(%d)", len, maxlen);
-	atci.recvbuf[len] = 0;
 	recvflag[sock] = VAL_CLEAR;
 
 	if((sockstat[sock] & SOCK_STAT_PROTMASK) == SOCK_STAT_IDLE) {	// ?�버그용?? ?�정?�면 간단?�게 ?�정??�?
@@ -732,15 +702,16 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 	ARG_CLEAR(atci.tcmd.arg2);
 	ARG_CLEAR(atci.tcmd.arg3);
 
-#if 1 // added by kei for resolve RECV data loss issue. (20170525)
-	uint32_t send_len = 0;
-	do{
-		send_len += UART_write(&atci.recvbuf[send_len], len-send_len);
-	}while(len-send_len);
-#else
- 	UART_write(atci.recvbuf, len);
- 	UART_write("\r\n", 2);
-#endif
+	while (RingBuffer_IsEmpty(&txring)==0) {
+
+	}
+
+	while (len != sentlen) {
+		rbret = UART_write(atci.recvbuf+sentlen, len-sentlen);
+		sentlen += rbret;
+	}
+
+	UART_write("\r\n", 2);
 
 	return;
 

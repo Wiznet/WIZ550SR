@@ -32,8 +32,8 @@
 #define USART2_TX		GPIO_Pin_2	// out
 #define USART2_RX		GPIO_Pin_3	// in
 
-#define UART_SRB_SIZE 1024	/* Send */
-#define UART_RRB_SIZE 1024	/* Receive */
+#define UART_SRB_SIZE 2048	/* Send */
+#define UART_RRB_SIZE 2048	/* Receive */
 
 //#define RS485_ENABLE
 #if defined(RS485_ENABLE)
