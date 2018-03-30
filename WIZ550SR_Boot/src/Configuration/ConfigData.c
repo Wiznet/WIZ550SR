@@ -96,7 +96,7 @@ void load_S2E_Packet_from_storage()
 #if defined(WIZ1x0SR_CFGTOOL)
 	if(s2e_packet.fw_ver[0] != 82)
 #endif
-		s2e_packet.fw_ver[0] = MAJOR_VER;
+	s2e_packet.fw_ver[0] = MAJOR_VER;
 	s2e_packet.fw_ver[1] = MINOR_VER;
 	s2e_packet.fw_ver[2] = MAINTENANCE_VER;
 }
