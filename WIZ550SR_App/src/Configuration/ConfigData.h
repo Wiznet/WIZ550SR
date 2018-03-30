@@ -15,6 +15,8 @@
 #define TCP_SERVER_MODE		1
 #define TCP_MIXED_MODE		2
 #define UDP_MODE			3
+#define PASS_LEN 			10
+#define NAME_LEN 			25
 
 enum baud {
 	baud_300 = 300,
@@ -69,7 +71,7 @@ struct __network_info_common {
 
 struct __network_info {
 	uint8_t working_mode;
-	uint8_t state;	// ?�켓???�태 TCP??경우 Not Connected, Connected, UDP??경우 UDP
+	uint8_t state;	// ?�켓???�태 TCP??경우 Not Connected, Connected, UDP??경우 UDP
 	uint8_t remote_ip[4];			// Must Be 4byte Alignment
 	uint16_t local_port;
 	uint16_t remote_port;
@@ -81,11 +83,11 @@ struct __network_info {
 	uint8_t packing_size;		// 0~255
 	uint8_t packing_delimiter[4];
 	uint8_t packing_delimiter_length;	// 0~4
-	uint8_t packing_data_appendix;	// 0~2(구분?�까지 ?�송, 구분??+1바이??까�? ?�송, 구분??+2바이??까�? ?�송)
+	uint8_t packing_data_appendix;	// 0~2(구분?�까지 ?�송, 구분??+1바이??까�? ?�송, 구분??+2바이??까�? ?�송)
 } __attribute__((packed));
 
 struct __serial_info {
-	uint32_t baud_rate;	// �?Baud Rate별로 코드 부??
+	uint32_t baud_rate;	// �?Baud Rate별로 코드 부??
 	uint8_t data_bits;	// 7, 8, 9 and more?
 	uint8_t parity;			// None, odd, even
 	uint8_t stop_bits;	// 1, 1.5, 2
@@ -93,8 +95,8 @@ struct __serial_info {
 } __attribute__((packed));
 
 struct __options {
-	char pw_setting[10];
-	char pw_connect[10];
+	char pw_setting[PASS_LEN];
+	char pw_connect[PASS_LEN];
 
 	uint8_t dhcp_use;
 
@@ -102,18 +104,18 @@ struct __options {
 	uint8_t dns_server_ip[4];
 	char dns_domain_name[50];
 
-	uint8_t serial_command;			// Serial Command Mode ?�용 ?��?
-	uint8_t serial_trigger[3];		// Serial Command Mode 진입???�한 Trigger 코드
+	uint8_t serial_command;			// Serial Command Mode ?�용 ?��?
+	uint8_t serial_trigger[3];		// Serial Command Mode 진입???�한 Trigger 코드
 } __attribute__((packed));
 
 typedef struct __S2E_Packet {
 	uint16_t packet_size;
-	uint8_t module_type[3]; // 모듈??종류별로 코드�?부?�하�??��? ?�용?�다.
-	uint8_t module_name[25];
-	uint8_t fw_ver[3];			// 10진수. Major Version . Minor Version . Maintenance Version 버전?�로 ?�뉨
+	uint8_t module_type[3]; // 모듈??종류별로 코드�?부?�하�??��? ?�용?�다.
+	uint8_t module_name[NAME_LEN];
+	uint8_t fw_ver[3];			// 10진수. Major Version . Minor Version . Maintenance Version 버전?�로 ?�뉨
 	struct __network_info_common network_info_common;
-	struct __network_info network_info[1];	// ?�러�??�켓???�용??경우
-	struct __serial_info serial_info[1];	// ?�러�??�리?�을 ?�용??경우
+	struct __network_info network_info[1];	// ?�러�??�켓???�용??경우
+	struct __serial_info serial_info[1];	// ?�러�??�리?�을 ?�용??경우
 	struct __options options;
 } __attribute__((packed)) S2E_Packet;
 
