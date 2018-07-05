@@ -120,6 +120,7 @@ static int16_t prevlen = 0;
 
 struct atc_info atci;
 
+static char cmdRespBuffer[20]={'\0',};
 /**
  * @ingroup atcmd_module
  * Initialize ATCMD Module.
@@ -359,11 +360,43 @@ void cmd_resp_dump(int8_t idval, int8_t *dump)
 	uint16_t len = dump!=NULL?strlen((char*)dump):0;
 
 	if(len == 0) {
-		if(idval == VAL_NONE) printf("[D,,0]\r\n");
-		else printf("[D,%d,0]\r\n", idval);
+		if(idval == VAL_NONE) {
+#ifndef CMD_RESP_PRINTF_UART_SYNCED
+			sprintf(cmdRespBuffer, "[D,,0]\r\n");
+			UART_write(cmdRespBuffer, strlen((char*)cmdRespBuffer));
+			memset(cmdRespBuffer, '\0', sizeof(cmdRespBuffer));
+#else
+			printf("[D,,0]\r\n");
+#endif
+		}
+		else {
+#ifndef CMD_RESP_PRINTF_UART_SYNCED
+			sprintf(cmdRespBuffer, "[D,%d,0]\r\n", idval);
+			UART_write(cmdRespBuffer, strlen((char*)cmdRespBuffer));
+			memset(cmdRespBuffer, '\0', sizeof(cmdRespBuffer));
+#else
+			printf("[D,%d,0]\r\n", idval);
+#endif
+		}
 	} else {
-		if(idval == VAL_NONE) printf("[D,,%d]\r\n%s\r\n", len, dump);
-		else printf("[D,%d,%d]\r\n%s\r\n", idval, len, dump);
+		if(idval == VAL_NONE) {
+#ifndef CMD_RESP_PRINTF_UART_SYNCED
+			sprintf(cmdRespBuffer, "[D,,%d]\r\n%s\r\n", len, dump);
+			UART_write(cmdRespBuffer, strlen((char*)cmdRespBuffer));
+			memset(cmdRespBuffer, '\0', sizeof(cmdRespBuffer));
+#else
+			printf("[D,,%d]\r\n%s\r\n", len, dump);
+#endif
+		}
+		else {
+#ifndef CMD_RESP_PRINTF_UART_SYNCED
+			sprintf(cmdRespBuffer, "[D,%d,%d]\r\n%s\r\n", idval, len, dump);
+			UART_write(cmdRespBuffer, strlen((char*)cmdRespBuffer));
+			memset(cmdRespBuffer, '\0', sizeof(cmdRespBuffer));
+#else
+			printf("[D,%d,%d]\r\n%s\r\n", idval, len, dump);
+#endif
+		}
 		DBG("going to free");
 		MEM_FREE(dump);
 		DBG("free done");

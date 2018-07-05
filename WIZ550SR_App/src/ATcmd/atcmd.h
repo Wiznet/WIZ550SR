@@ -14,6 +14,8 @@
 
 #include "library/at_common.h"
 
+//#define CMD_RESP_PRINTF_UART_SYNCED
+
 struct at_command
 {
 	const char *cmd;
