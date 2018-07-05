@@ -75,6 +75,13 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
+v1.1.7
+- Added features
+	- AT+MPASS : (AT command) Change the module's name(automatically saved)
+	- AT+MNAME : (AT command) Change the module's password(automatically saved)
+- Changed
+	- AT+NMODE -> AT+MMODE
+
 v1.1.6
 - Fixed Response and debug message error in AT Mode
 
