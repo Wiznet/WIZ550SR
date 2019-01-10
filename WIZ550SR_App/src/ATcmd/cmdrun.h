@@ -36,6 +36,8 @@
 #define RET_NOT_CONN	-23
 #define RET_WRONG_ADDR	-24
 #define RET_NO_DATA		-25
+#define RET_SOCK_ERROR	-26
+
 #define RET_NO_FREEMEM	-30
 
 #define ERRVAL_UNSPECIFIED	'0'	// under 10
@@ -53,6 +55,7 @@
 #define ERRVAL_NOT_CONN		'3'
 #define ERRVAL_WRONG_ADDR	'4'
 #define ERRVAL_NO_DATA		'5'
+#define ERRVAL_SOCK_ERROR   '6'
 #define ERRVAL_NO_FREEMEM	'0'	// under 30
 
 #define ATC_SOCK_NUM_START	0

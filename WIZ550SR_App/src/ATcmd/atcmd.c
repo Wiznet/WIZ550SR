@@ -464,6 +464,7 @@ void cmd_resp(int8_t retval, int8_t idval)
 		case RET_NOT_CONN: CMD_SWT_EXT('1', ERRVAL_NOT_CONN); break;
 		case RET_WRONG_ADDR: CMD_SWT_EXT('1', ERRVAL_WRONG_ADDR); break;
 		case RET_NO_DATA: CMD_SWT_EXT('1', ERRVAL_NO_DATA); break;
+		case RET_SOCK_ERROR: CMD_SWT_EXT('1', ERRVAL_SOCK_ERROR); break;
 		case RET_NO_FREEMEM: CMD_SWT_EXT('2', ERRVAL_NO_FREEMEM); break;
 		default:termbuf[idx++] = '0';break;
 		}

@@ -654,11 +654,21 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 			ret = RET_NO_DATA;
 			goto FAIL_RET;
 		}
+		else if(recvsize < 0) {
+			DBGA("sock error - sock(%d)", sock);
+			ret = RET_SOCK_ERROR;
+			goto FAIL_RET;
+		}
 		else {
 			if(recvsize > maxlen)
 				recvsize = maxlen;
 		}
 		len = recv(sock, (uint8_t*)atci.recvbuf, recvsize);			//DBGA("TCPdbg---m(%d)l(%d)f(%d)", maxlen, len, GetSocketRxRecvBufferSize(sock));
+		if(len < 0) {
+			DBGA("sock error - sock(%d)", sock);
+			ret = RET_SOCK_ERROR;
+			goto FAIL_RET;
+		}
 	} else {									// UDP
 
 		getsockopt(sock, SO_RECVBUF, (uint16_t*)&recvsize);
@@ -667,11 +677,21 @@ void act_nrecv(int8_t sock, uint16_t maxlen){
 			ret = RET_NO_DATA;
 			goto FAIL_RET;
 		}
+		else if(recvsize < 0) {
+			DBGA("sock error - sock(%d)", sock);
+			ret = RET_SOCK_ERROR;
+			goto FAIL_RET;
+		}
 		else {
 			if(recvsize > maxlen)
 				recvsize = maxlen;
 		}
 		len = recvfrom(sock, (uint8_t*)atci.recvbuf, recvsize, dstip, &dstport);
+		if(len < 0) {
+			DBGA("sock error - sock(%d)", sock);
+			ret = RET_SOCK_ERROR;
+			goto FAIL_RET;
+		}
 	}
 										//DBGA("RECV prt-len(%d), max(%d)", len, maxlen);
 	recvflag[sock] = VAL_CLEAR;
