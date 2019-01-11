@@ -75,6 +75,9 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
+v1.1.9
+- Add Watchdog Function
+
 v1.1.8
 - Fixed Response and debug message error in AT Mode
 
