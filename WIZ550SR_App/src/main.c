@@ -25,6 +25,7 @@
 #include "dhcp_cb.h"
 #include "i2cHandler.h"
 #include "eepromHandler.h"
+#include "stm32f10x_iwdg.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -172,7 +173,16 @@ int main(int argc, char* argv[])
 	atc_init();
 
 	op_mode = OP_DATA;
+
+	IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);
+	IWDG_SetPrescaler(IWDG_Prescaler_256);
+	IWDG_SetReload(156);
+	IWDG_ReloadCounter();
+	IWDG_Enable();
+
 	while (1) {
+		IWDG_ReloadCounter();
+
 		if(op_mode == OP_COMMAND) {			// Command Mode
 			atc_run();
 			sockwatch_run();
