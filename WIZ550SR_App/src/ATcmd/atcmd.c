@@ -120,7 +120,7 @@ static int16_t prevlen = 0;
 
 struct atc_info atci;
 
-static char cmdRespBuffer[20]={'\0',};
+static char cmdRespBuffer[50]={'\0',};
 /**
  * @ingroup atcmd_module
  * Initialize ATCMD Module.

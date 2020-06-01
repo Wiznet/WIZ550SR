@@ -5,8 +5,8 @@
 #include <stdint.h>
 
 #define MAJOR_VER		1
-#define MINOR_VER		1
-#define MAINTENANCE_VER	9
+#define MINOR_VER		2
+#define MAINTENANCE_VER	1
 
 #define SOCK_DATA		0
 #define SOCK_TFTP		1
