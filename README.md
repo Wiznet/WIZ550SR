@@ -75,6 +75,9 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
+v1.2.1
+- AT Command RSP Buffer Size 20 -> 50
+
 v1.1.9
 - Add Watchdog Function
 
