@@ -75,6 +75,10 @@ These are Firmware projects (source code) based on Eclipse IDE for C/C++ Develop
  
  
 ## Revision History
+v1.2.2
+- Change prevbuf from pointer array to 2D array
+- Change dump from pointer to array
+
 v1.2.1
 - AT Command RSP Buffer Size 20 -> 50
 

@@ -740,8 +740,9 @@ void act_nsock(int8_t sock)
 
 	if(sock < ATC_SOCK_NUM_START)
 	{
-		int8_t *dump, i, type, cnt_con=0, cnt_notcon=0;
+		int8_t i, type, cnt_con=0, cnt_notcon=0;
 		uint16_t dump_idx = 0;
+		static char dump[50]={'\0',};
 
 		//DBG("NSOCK-start");
 		for(i=ATC_SOCK_NUM_START; i<=ATC_SOCK_NUM_END; i++) {
@@ -760,7 +761,7 @@ void act_nsock(int8_t sock)
 			cmd_resp_dump(VAL_NONE, NULL);
 			return;
  		}
-		dump = malloc((36*cnt_con)+(16*cnt_notcon)+1);			//DBGA("DUMP BUF(%d),C(%d),N(%d)", (36*cnt_con)+(14*cnt_notcon)+1, cnt_con, cnt_notcon);
+		//DBGA("DUMP BUF(%d),C(%d),N(%d)", (36*cnt_con)+(14*cnt_notcon)+1, cnt_con, cnt_notcon);
 		if(dump == NULL) {
 			cmd_resp(RET_NO_FREEMEM, VAL_NONE);
 			return;

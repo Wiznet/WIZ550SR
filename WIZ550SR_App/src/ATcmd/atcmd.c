@@ -114,7 +114,7 @@ const struct at_command g_cmd_table[] =
 };
 
 static int8_t termbuf[ATCMD_BUF_SIZE];
-static int8_t *prevbuf[PREVBUF_MAX_NUM];
+static int8_t prevbuf[PREVBUF_MAX_NUM][ATCMD_BUF_SIZE];
 static uint8_t previdx = 0, prevcnt = 0;
 static int16_t prevlen = 0;
 
@@ -131,7 +131,7 @@ void atc_init()
 	int8_t i;
 
 	memset(termbuf, 0, ATCMD_BUF_SIZE);
-	for(i=0; i<PREVBUF_MAX_NUM; i++) prevbuf[i] = NULL;
+	for(i=0; i<PREVBUF_MAX_NUM; i++) strcpy((char*)prevbuf[i],"\0");
 	atci.sendsock = VAL_NONE;
 	atci.echo = VAL_DISABLE;
 	atci.poll = POLL_MODE_SEMI;
@@ -227,22 +227,17 @@ static void cmd_set_prev(uint8_t buflen)
 		idx = (previdx + PREVBUF_MAX_NUM - prevcnt) % PREVBUF_MAX_NUM;	// oldest index
 		if(prevbuf[idx]) {
 			prevlen -= strlen((char*)prevbuf[idx]) + 1;
-			free(prevbuf[idx]);
-			prevbuf[idx] = NULL;
+			strcpy((char*)prevbuf[previdx],"\0");
 			prevcnt--;
 		} else CRITICAL_ERR("ring buf 1");
 	}
-
-	prevbuf[previdx] = malloc(buflen+1);
 
 	while(prevcnt && prevbuf[previdx] == NULL) {
 		idx = (previdx + PREVBUF_MAX_NUM - prevcnt) % PREVBUF_MAX_NUM;	// oldest index
 		if(prevbuf[idx]) {
 			prevlen -= strlen((char*)prevbuf[idx]) + 1;
-			free(prevbuf[idx]);
-			prevbuf[idx] = NULL;
+			strcpy((char*)prevbuf[previdx],"\0");
 			prevcnt--;
-			prevbuf[previdx] = malloc(buflen+1);
 		} else CRITICAL_ERR("ring buf 2");
 	}
 
@@ -641,6 +636,7 @@ static void hdl_nopen(void)
 		CHK_ARG_LEN(atci.tcmd.arg5, 0, 5);
 		type = atci.tcmd.arg1[0];
 		CMD_CLEAR();
+		delay_ms(5);
 		act_nopen_a(type, SrcPort, dip, DstPort);
 	}
 	else CRITICAL_ERRA("wrong sign(%d)", atci.tcmd.sign);
